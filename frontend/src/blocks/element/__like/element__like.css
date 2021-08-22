@@ -1,0 +1,23 @@
+.element__like {
+  padding: 10px 11px 9px;
+  margin-left: 20px;
+  background-image: url("../../../images/like.svg");
+  background-repeat: no-repeat;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+}
+
+.element__like:active {
+  background-image: url("../../../images/like-active.svg");
+  outline: none;
+}
+
+.element__like:focus {
+  outline: none;
+}
+
+.element__like:hover {
+  opacity: 0.5;
+}

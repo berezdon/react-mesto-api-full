@@ -1,0 +1,4 @@
+.profile__avatar-edit-image {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}

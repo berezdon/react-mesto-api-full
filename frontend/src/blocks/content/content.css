@@ -1,0 +1,16 @@
+.content {
+  width: 880px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 880px){
+  .content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 445px){
+  .content {
+  }
+}

@@ -1,0 +1,5 @@
+.popup_zoom {
+  flex-direction: column;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.9);
+}
