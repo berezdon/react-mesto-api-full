@@ -5,20 +5,20 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const value = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__position">
           <div onClick={props.onEditAvatar} className="profile__avatar"
-               style={{ backgroundImage: `url(${currentUser.avatar})` }}>
+               style={{ backgroundImage: `url(${value.currentUser.avatar})` }}>
             <img className="profile__avatar-edit-image" src={editImage} alt="Изменить фотографию"/>
           </div>
           <div className="profile__info">
-            <h1 className="profile__title">{currentUser.name}</h1>
+            <h1 className="profile__title">{value.currentUser.name}</h1>
             <button onClick={props.onEditProfile} type="button" className="profile__edit-button" aria-label="Редактировать"/>
-            <p className="profile__subtitle">{currentUser.about}</p>
+            <p className="profile__subtitle">{value.currentUser.about}</p>
           </div>
         </div>
         <button onClick={props.onAddPlace} type="button" className="profile__add-button" aria-label="Добавить" />

@@ -2,22 +2,22 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 
-function AddPlacePopup(props) {
+function AddPlacePopup({isOpen, onClose, onAddPlace, textButtonAdd}) {
   const name = React.useRef();
   const link = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    props.onAddPlace({
+    onAddPlace({
       name: name.current.value,
       link: link.current.value,
     })
   }
 
   return (
-    <PopupWithForm name="add" title="Новое место" textButton={props.textButtonAdd}
-                   isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+    <PopupWithForm name="add" title="Новое место" textButton={textButtonAdd}
+                   isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <input ref={name} type="text" className="popup__input popup__input_firstname_value-add" placeholder="Название"
              name="firstname" id="title-input" required minLength="2" maxLength="30" />
       <span className="popup__input-error title-input-error">Вы пропустили это поле.</span>

@@ -13,7 +13,8 @@ class Api {
 
   getUserData(){
     return fetch(`${this.options.baseUrl}/users/me`, {
-      headers: this.options.headers
+      headers: this.options.headers,
+      credentials: 'include',
     })
       .then(this._checkResponse);
   }
@@ -22,6 +23,7 @@ class Api {
     return fetch(`${this.options.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.options.headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         about: about
@@ -32,7 +34,8 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this.options.baseUrl}/cards`, {
-      headers: this.options.headers
+      headers: this.options.headers,
+      credentials: 'include'
     })
       .then(this._checkResponse);
   }
@@ -41,6 +44,7 @@ class Api {
     return fetch(`${this.options.baseUrl}/cards`, {
       method: 'POST',
       headers: this.options.headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: initialCard.name,
         link: initialCard.link,
@@ -53,6 +57,7 @@ class Api {
     return fetch(`${this.options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this.options.headers,
+      credentials: 'include'
     })
       .then(this._checkResponse);
   }
@@ -61,11 +66,13 @@ class Api {
     if (isLiked) return fetch(`${this.options.baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this.options.headers,
+      credentials: 'include'
     })
       .then(this._checkResponse);
     else return fetch(`${this.options.baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this.options.headers,
+      credentials: 'include'
     })
       .then(this._checkResponse);
   }
@@ -74,6 +81,7 @@ class Api {
     return fetch(`${this.options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.options.headers,
+      credentials: 'include',
       body: JSON.stringify({
         avatar: avatar,
       })
@@ -87,7 +95,8 @@ const api = new Api({
   headers: {
     authorization: 'e9a64586-81ff-4bf4-b9f5-eace2b033059',
     'Content-Type': 'application/json'
-  }
+  },
+  credentials: 'include'
 });
 
 export default api
