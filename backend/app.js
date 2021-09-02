@@ -19,7 +19,7 @@ const regExpLink = /^((http|https):\/\/)(www\.)?[A-Za-z0-9][\w\-.~:/?#[\]@!$&'()
 app.use(requestLogger); // подключаем логгер запросов
 
 app.use(cookieParser());
-app.use(cors());
+app.use(cors);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
