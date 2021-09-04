@@ -1,5 +1,5 @@
-//export const BASE_URL = 'https://api.berezdon.nomoredomain.nomoredomains.club';
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.berezdon.nomoredomain.nomoredomains.club';
+//export const BASE_URL = 'http://localhost:3000';
 
 export const register = ( password, email) => {
   return fetch(`${BASE_URL}/signup`, {
