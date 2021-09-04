@@ -23,6 +23,7 @@ class Register extends React.Component {
     e.preventDefault();
     const { password, email } = this.state;
     auth.register( password, email).then((res) => {
+      console.log(res);
       if(res){
         this.setState({
           message: ''

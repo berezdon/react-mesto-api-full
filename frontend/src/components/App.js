@@ -24,7 +24,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-  const [issSingIn, setIsSingIn] = React.useState(false);
+  const [isSingIn, setIsSingIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(
     {name: "",
       about: "",
@@ -51,6 +51,7 @@ function App() {
   );
 
   React.useEffect(() => {
+    handleHeaderInfo(history.location.pathname.substr(1));
     api.getUserData()
       .then((userData) => {
         setCurrentUser(userData);
@@ -58,7 +59,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, [issSingIn]);
+  }, [isSingIn]);
 
   function handleInfoTooltipClick() {
     setIsInfoTooltipPopupOpen(true);
@@ -123,7 +124,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, [issSingIn]);
+  }, [isSingIn]);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
