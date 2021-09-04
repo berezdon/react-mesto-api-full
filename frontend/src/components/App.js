@@ -16,6 +16,7 @@ import Register from "./Register";
 import unionTrue from "../images/union.svg";
 import unionFalse from "../images/unio_err.svg";
 import * as auth from '../auth.js';
+import {userExit} from "../auth.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -23,6 +24,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [issSingIn, setIsSingIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(
     {name: "",
       about: "",
@@ -56,7 +58,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [issSingIn]);
 
   function handleInfoTooltipClick() {
     setIsInfoTooltipPopupOpen(true);
@@ -121,12 +123,11 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [issSingIn]);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -218,29 +219,35 @@ function App() {
   const history = useHistory();
 
   function handleTokenCheck(){
-    if (localStorage.getItem('jwt')){
-      const jwt = localStorage.getItem('jwt');
-      // проверяем токен пользователя
-      auth.checkToken(jwt).then((res) => {
-        if (res){
-          console.log(res);
-          setLoggedIn(true)
-          history.push('/')
-          handleHeaderInfo('/', res.data.email)
-        }
-      })
-        .catch((err) => {
-          console.log(err);
-          localStorage.removeItem('jwt')
-        });
-    }
+    auth.checkToken().then((res) => {
+      if (res){
+        console.log(res);
+        setLoggedIn(true);
+        history.push('/');
+        handleHeaderInfo('/', res.email);
+        api.getInitialCards()
+          .then((cards) => {
+            setCards(cards);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function onSignOut (){
-    localStorage.removeItem('jwt');
-    history.push('/sign-in');
-    setLoggedIn(false);
-    handleHeaderInfo('sign-in');
+    auth.userExit()
+      .then((mes) => {
+        console.log(mes);
+        history.push('/sign-in');
+        setLoggedIn(false);
+        handleHeaderInfo('sign-in');
+      })
+
   }
 
   return (
@@ -248,7 +255,8 @@ function App() {
       <CurrentUserContext.Provider value={{loggedIn: loggedIn,
         handleLogin: handleLogin,
         currentUser: currentUser,
-        onHeaderInfo: handleHeaderInfo
+        onHeaderInfo: handleHeaderInfo,
+        setIsSingIn: setIsSingIn
       }}>
         <Header headerInfo={headerInfo} signOut={onSignOut }/>
         <Switch>

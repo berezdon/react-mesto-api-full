@@ -117,3 +117,11 @@ module.exports.login = (req, res, next) => {
       next(new UnauthorizedError('Неправильная почта или пароль'));
     });
 };
+
+module.exports.exit = (req, res) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+  }).status(200).send({message: 'Успешный выход'})
+};

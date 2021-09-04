@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
-const { createUser, login } = require('./controllers/user');
+const { createUser, login, exit} = require('./controllers/user');
 const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
@@ -50,6 +50,7 @@ app.post('/signup', celebrate({
     avatar: Joi.string().pattern(regExpLink),
   }),
 }), createUser);
+app.get('/exit', exit);
 app.use(auth);
 app.use('/users', require('./routes/user'));
 app.use('/cards', require('./routes/card'));

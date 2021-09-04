@@ -30,17 +30,15 @@ class Login extends React.Component {
     }
     auth.authorize(this.state.password, this.state.email)
       .then((data) => {
-        if (data.token) {
-          value.onHeaderInfo('/', this.state.email);
-          this.setState({
-            email: '',
-            password: ''
-          }, () => {
-            localStorage.setItem('jwt', data.token);
-            value.handleLogin(); // подключаем метод из value
-            this.props.history.push('/');
-          })
-        }
+        value.onHeaderInfo('/', this.state.email);
+        this.setState({
+          email: '',
+          password: ''
+        }, () => {
+          value.handleLogin(); // подключаем метод из value
+          value.setIsSingIn(true);
+          this.props.history.push('/');
+        })
       })
       .catch(err => console.log(err));
   }

@@ -91,7 +91,8 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.berezdon.nomoredomain.nomoredomains.club',
+  //baseUrl: 'https://api.berezdon.nomoredomain.nomoredomains.club',
+  baseUrl: 'http://localhost:3000',
   headers: {
     authorization: 'e9a64586-81ff-4bf4-b9f5-eace2b033059',
     'Content-Type': 'application/json'

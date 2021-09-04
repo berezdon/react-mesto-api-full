@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://api.berezdon.nomoredomain.nomoredomains.club';
+//export const BASE_URL = 'https://api.berezdon.nomoredomain.nomoredomains.club';
+export const BASE_URL = 'http://localhost:3000';
 
 export const register = ( password, email) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -41,23 +42,40 @@ export const authorize = (password, email) => {
       }
     })
     .then((data) => {
-      console.log(data);
-      if (data.token){
-        return data;
-      }
+      return data;
     })
     .catch(err => console.log(err))
 };
-export const checkToken = (token) => {
+export const checkToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      'Access-Control-Request-Headers': true,
+    },
+    credentials: 'include',
+  })
+    .then((res) => {
+      try {
+        if (res.status === 200){
+          return res.json();
+        }
+      } catch(e){
+        return (e)
+      }
+    })
+    .then(data => data)
+}
+
+export const userExit = () => {
+  return fetch(`${BASE_URL}/exit`,{
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
     },
     credentials: 'include',
   })
     .then(res => res.json())
-    .then(data => data)
 }
 
