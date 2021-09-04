@@ -8,10 +8,10 @@ export const register = ( password, email) => {
     },
     body: JSON.stringify({ password, email })
   })
-    .then((response) => {
+    .then((res) => {
       try {
-        if (response.status === 201){
-          return response.json();
+        if (res.status === 201){
+          return res.json();
         }
       } catch(e){
         return (e)
@@ -28,18 +28,20 @@ export const authorize = (password, email) => {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({password, email})
   })
-    .then((response) => {
+    .then((res) => {
       try {
-        if (response.status === 200){
-          return response.json();
+        if (res.status === 200){
+          return res.json();
         }
       } catch(e){
         return (e)
       }
     })
     .then((data) => {
+      console.log(data);
       if (data.token){
         return data;
       }

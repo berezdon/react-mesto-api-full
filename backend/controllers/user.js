@@ -108,10 +108,10 @@ module.exports.login = (req, res, next) => {
         // token - наш JWT токен, который мы отправляем
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'None',
         secure: true,
       })
-        .end(); // если у ответа нет тела, можно использовать метод end
+        .send('login!!!'); // если у ответа нет тела, можно использовать метод end
     })
     .catch(() => {
       next(new UnauthorizedError('Неправильная почта или пароль'));
