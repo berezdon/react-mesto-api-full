@@ -221,7 +221,6 @@ function App() {
   function handleTokenCheck(){
     auth.checkToken().then((res) => {
       if (res){
-        console.log(res);
         setLoggedIn(true);
         history.push('/');
         handleHeaderInfo('/', res.email);
@@ -255,6 +254,7 @@ function App() {
       <CurrentUserContext.Provider value={{loggedIn: loggedIn,
         handleLogin: handleLogin,
         currentUser: currentUser,
+        isEditProfilePopupOpen: isEditProfilePopupOpen,
         onHeaderInfo: handleHeaderInfo,
         setIsSingIn: setIsSingIn
       }}>
